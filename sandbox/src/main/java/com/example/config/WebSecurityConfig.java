@@ -1,30 +1,39 @@
-package com.example.app;
+package com.example.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.example.service.UserInfoService;
+
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
+    @Autowired
+    private UserInfoService userInfoService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
         http.authorizeRequests()
                 // アクセス権限の設定
-                .antMatchers("/css/**").permitAll().anyRequest().authenticated()
-                // ログイン処理
-                .and()
+                // staticディレクトリにある、'/css/','fonts','/js/'は制限なし
+                .antMatchers("/css/**", "/fonts/**", "/js/**").permitAll()
+                // '/admin/'で始まるURLには、'ADMIN'ロールのみアクセス可
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                // 他は制限なし
+                .anyRequest().authenticated().and()
                 // ログイン処理の設定
                 .formLogin()
                 // ログイン処理のURL
                 .loginPage("/login")
-                // パラメータ名
-                .usernameParameter("user").passwordParameter("pass").permitAll()
-                // ログアウト処理
-                .and()
+                // usernameのパラメタ名
+                .usernameParameter("user")
+                // passwordのパラメタ名
+                .passwordParameter("pass").permitAll().and()
                 // ログアウト処理の設定
                 .logout()
                 // ログアウト処理のURL
@@ -40,9 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
     {
-        // インメモリでユーザー認証を実装
-        auth.inMemoryAuthentication()
-                // ユーザー
-                .withUser("user").password("pass").roles("USER");
+        auth.userDetailsService(userInfoService);
     }
 }
