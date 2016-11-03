@@ -21,13 +21,13 @@ public class UserInfoService implements UserDetailsService
     {
         if (StringUtils.isEmpty(username))
         {
-            throw new UsernameNotFoundException("Username is empty");
+            throw new UsernameNotFoundException("");
         }
 
         UserInfoEntity userInfo = userInfoRepository.findByUsername(username);
         if (userInfo == null)
         {
-            throw new UsernameNotFoundException("User not found for name : " + username);
+            throw new UsernameNotFoundException("");
         }
 
         return userInfo;

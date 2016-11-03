@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.example.service.UserInfoService;
+import com.example.web.LoginController;
+import com.example.web.LogoutController;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
@@ -16,39 +18,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     private UserInfoService userInfoService;
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception
+    protected void configure(HttpSecurity httpSecurity) throws Exception
     {
-        http.authorizeRequests()
-                // ƒAƒNƒZƒXŒ ŒÀ‚Ìİ’è
-                // staticƒfƒBƒŒƒNƒgƒŠ‚É‚ ‚éA'/css/','fonts','/js/'‚Í§ŒÀ‚È‚µ
+        httpSecurity.authorizeRequests()
+                // ã‚¢ã‚¯ã‚»ã‚¹æ¨©é™ã®è¨­å®š
+                // staticãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ã‚ã‚‹ã€'/css/','fonts','/js/'ã¯åˆ¶é™ãªã—
                 .antMatchers("/css/**", "/fonts/**", "/js/**").permitAll()
-                // '/admin/'‚Ån‚Ü‚éURL‚É‚ÍA'ADMIN'ƒ[ƒ‹‚Ì‚İƒAƒNƒZƒX‰Â
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                // ‘¼‚Í§ŒÀ‚È‚µ
+                // '/admin/'ã§å§‹ã¾ã‚‹URLã«ã¯ã€'ADMIN'ãƒ­ãƒ¼ãƒ«ã®ã¿ã‚¢ã‚¯ã‚»ã‚¹å¯
+                // .antMatchers("/admin/**").hasRole("ADMIN")
+                // ä»–ã¯åˆ¶é™ãªã—
                 .anyRequest().authenticated().and()
-                // ƒƒOƒCƒ“ˆ—‚Ìİ’è
+                // ãƒ­ã‚°ã‚¤ãƒ³å‡¦ç†ã®è¨­å®š
                 .formLogin()
-                // ƒƒOƒCƒ“ˆ—‚ÌURL
-                .loginPage("/login")
-                // username‚Ìƒpƒ‰ƒƒ^–¼
+                // ãƒ­ã‚°ã‚¤ãƒ³å‡¦ç†ã®URL
+                .loginPage(LoginController.PAGE)
+                // usernameã®ãƒ‘ãƒ©ãƒ¡ã‚¿å
                 .usernameParameter("user")
-                // password‚Ìƒpƒ‰ƒƒ^–¼
+                // passwordã®ãƒ‘ãƒ©ãƒ¡ã‚¿å
                 .passwordParameter("pass").permitAll().and()
-                // ƒƒOƒAƒEƒgˆ—‚Ìİ’è
+                // ãƒ­ã‚°ã‚¢ã‚¦ãƒˆå‡¦ç†ã®è¨­å®š
                 .logout()
-                // ƒƒOƒAƒEƒgˆ—‚ÌURL
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                // ƒƒOƒAƒEƒg¬Œ÷‚Ì‘JˆÚæURL
-                .logoutSuccessUrl("/login")
-                // ƒƒOƒAƒEƒg‚Éíœ‚·‚éƒNƒbƒL[–¼
+                // ãƒ­ã‚°ã‚¢ã‚¦ãƒˆå‡¦ç†ã®URL
+                .logoutRequestMatcher(new AntPathRequestMatcher(LogoutController.PAGE))
+                // ãƒ­ã‚°ã‚¢ã‚¦ãƒˆæˆåŠŸæ™‚ã®é·ç§»å…ˆURL
+                .logoutSuccessUrl(LoginController.PAGE)
+                // ãƒ­ã‚°ã‚¢ã‚¦ãƒˆæ™‚ã«å‰Šé™¤ã™ã‚‹ã‚¯ãƒƒã‚­ãƒ¼å
                 .deleteCookies("JSESSIONID")
-                // ƒƒOƒAƒEƒg‚ÌƒZƒbƒVƒ‡ƒ“”jŠü‚ğ—LŒø‰»
+                // ãƒ­ã‚°ã‚¢ã‚¦ãƒˆæ™‚ã®ã‚»ãƒƒã‚·ãƒ§ãƒ³ç ´æ£„ã‚’æœ‰åŠ¹åŒ–
                 .invalidateHttpSession(true).permitAll();
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception
+    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder)
+            throws Exception
     {
-        auth.userDetailsService(userInfoService);
+        authenticationManagerBuilder.userDetailsService(userInfoService);
     }
 }

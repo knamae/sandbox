@@ -1,16 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<div>結果</div>
-	<div>
-		<p th:text="${result}" />
-	</div>
-	
-	<form action="#" th:action="@{/logout}" method="POST">
-		<input type="submit" value="ログアウト"/>
-	</form>	
+  <div>結果</div>
+  <div>
+    <p th:text="${result}" />
+  </div>
+  <form action="#" th:action="@{/logout}" method="POST">
+    <input type="submit" value="ログアウト" />
+  </form>
 </body>
 </html>

@@ -21,14 +21,14 @@ import lombok.Data;
 
 // JPA Java Persistent API
 
-// Entity ƒNƒ‰ƒX
+// Entity ã‚¯ãƒ©ã‚¹
 // http://qiita.com/ughirose/items/5d691adc677aa08636b8
 @Entity
-// Lombok(ƒƒ“ƒ{ƒbƒN)
-// ƒAƒmƒe[ƒVƒ‡ƒ“‚ğ‚Â‚¯‚é‚¾‚¯‚ÅAgetter, setter, toString, equals ‚È‚Ç‚Ì
-// ‰½“x‚à‘‚­ƒR[ƒh‚ğƒRƒ“ƒpƒCƒ‹‚É©“®¶¬‚µ‚Ä‚­‚ê‚é
+// Lombok(ãƒ­ãƒ³ãƒœãƒƒã‚¯)
+// ã‚¢ãƒãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã¤ã‘ã‚‹ã ã‘ã§ã€getter, setter, toString, equals ãªã©ã®
+// ä½•åº¦ã‚‚æ›¸ãã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«æ™‚ã«è‡ªå‹•ç”Ÿæˆã—ã¦ãã‚Œã‚‹
 @Data
-// ƒe[ƒuƒ‹–¼
+// ãƒ†ãƒ¼ãƒ–ãƒ«å
 @Table(name = "user_info")
 public class UserInfoEntity implements UserDetails
 {
@@ -39,10 +39,8 @@ public class UserInfoEntity implements UserDetails
         ROLE_USER, ROLE_ADMIN
     };
 
-    // åƒL[
-    @Id
-    // ©“®Ì”ÔiDB‚Ìidentity‚ğ—˜—pj
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id // ä¸»ã‚­ãƒ¼
+    @GeneratedValue(strategy = GenerationType.AUTO) // è‡ªå‹•æ¡ç•ªï¼ˆDBã®identityã‚’åˆ©ç”¨ï¼‰
     private Long id;
 
     @Column(nullable = false, unique = true)

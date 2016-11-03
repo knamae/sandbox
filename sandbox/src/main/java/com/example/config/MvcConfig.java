@@ -4,15 +4,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-// Spring ‚Ì‚¢‚ë‚¢‚ë‚Èİ’è‚ğƒR[ƒhã‚Ås‚¤‚½‚ß‚ÌƒAƒmƒe[ƒVƒ‡ƒ“
+// Spring ã®ã„ã‚ã„ã‚ãªè¨­å®šã‚’ã‚³ãƒ¼ãƒ‰ä¸Šã§è¡Œã†ãŸã‚ã®ã‚¢ãƒãƒ†ãƒ¼ã‚·ãƒ§ãƒ³
 @Configuration
-// Spring Boot ‚Å WebMvcConfigurerAdapter ‚ÌqƒNƒ‰ƒX‚ğì¬‚·‚éê‡‚ÍA
-// @EnableWebMvc ‚Í•s—vBAutoConfigure ‚Ìˆê•”‚ª–³Œø‚É‚È‚éB
+// Spring Boot ã§ WebMvcConfigurerAdapter ã®å­ã‚¯ãƒ©ã‚¹ã‚’ä½œæˆã™ã‚‹å ´åˆã¯ã€
+// @EnableWebMvc ã¯ä¸è¦ã€‚AutoConfigure ã®ä¸€éƒ¨ãŒç„¡åŠ¹ã«ãªã‚‹ã€‚
 public class MvcConfig extends WebMvcConfigurerAdapter
 {
     @Override
     public void addViewControllers(ViewControllerRegistry registry)
     {
-        registry.addViewController("/login").setViewName("login");
+        // registry.addViewController("/login").setViewName("login");
     }
 }

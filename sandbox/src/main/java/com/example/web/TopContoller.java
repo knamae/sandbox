@@ -9,31 +9,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-// @EnableAutoConfiguration
 public class TopContoller
 {
+    public static final String PAGE = "/";
+    private static final String HTML = "top";
+
     @ModelAttribute
     public MessageForm setupForm()
     {
         return new MessageForm();
     }
 
-    @RequestMapping(value = { "/", "/top" }, method = RequestMethod.GET)
+    @RequestMapping(value = TopContoller.PAGE, method = RequestMethod.GET)
     public String top(MessageForm messageForm, Model model)
     {
         model.addAttribute("messageForm", messageForm);
-        return "top";
+        return TopContoller.HTML;
     }
 
-    @RequestMapping(value = "/top", method = RequestMethod.POST)
+    @RequestMapping(value = TopContoller.PAGE, method = RequestMethod.POST)
     public String doSendMessage(@Validated MessageForm messageForm, BindingResult result,
             Model model)
     {
         if (result.hasErrors())
         {
-            return "top";
+            return TopContoller.HTML;
         }
 
-        return "redirect:result";
+        return "redirect:" + TopContoller.PAGE;
     }
 }

@@ -5,14 +5,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-// @EnableAutoConfiguration
 public class ResultController
 {
-    @RequestMapping({ "/result" })
+    public static final String PAGE = "/result";
+    private static final String HTML = "result";
+
+    @RequestMapping({ ResultController.PAGE })
     public String result(Model model)
     {
         model.addAttribute("result", "success");
 
-        return "result";
+        return ResultController.HTML;
     }
 }
