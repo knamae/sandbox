@@ -1,4 +1,4 @@
-package com.example.entity;
+package com.example.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,7 +17,18 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.Data;
+
+// JPA Java Persistent API
+
+// Entity クラス
+// http://qiita.com/ughirose/items/5d691adc677aa08636b8
 @Entity
+// Lombok(ロンボック)
+// アノテーションをつけるだけで、getter, setter, toString, equals などの
+// 何度も書くコードをコンパイル時に自動生成してくれる
+@Data
+// テーブル名
 @Table(name = "user_info")
 public class UserInfoEntity implements UserDetails
 {
@@ -28,7 +39,9 @@ public class UserInfoEntity implements UserDetails
         ROLE_USER, ROLE_ADMIN
     };
 
+    // 主キー
     @Id
+    // 自動採番（DBのidentityを利用）
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -73,27 +86,5 @@ public class UserInfoEntity implements UserDetails
     public boolean isEnabled()
     {
         return true;
-    }
-
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
-
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
-
-    @Override
-    public String getPassword()
-    {
-        return this.password;
-    }
-
-    @Override
-    public String getUsername()
-    {
-        return this.username;
     }
 }
