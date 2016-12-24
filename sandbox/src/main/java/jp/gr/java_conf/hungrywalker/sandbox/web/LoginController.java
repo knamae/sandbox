@@ -1,4 +1,4 @@
-package com.example.web;
+package jp.gr.java_conf.hungrywalker.sandbox.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

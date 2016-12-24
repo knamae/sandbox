@@ -1,4 +1,4 @@
-package com.example.web;
+package jp.gr.java_conf.hungrywalker.sandbox.web;
 
 import javax.validation.constraints.Size;
 

@@ -1,4 +1,4 @@
-package com.example.service;
+package jp.gr.java_conf.hungrywalker.sandbox.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,14 +7,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.domain.UserInfoEntity;
-import com.example.domain.UserInfoRepository;
+import jp.gr.java_conf.hungrywalker.sandbox.entity.MemberEntity;
+import jp.gr.java_conf.hungrywalker.sandbox.repository.MemberRepository;
 
 @Service
-public class UserInfoService implements UserDetailsService
+public class UserInfoServiceImpl implements UserDetailsService
 {
-    @Autowired
-    private UserInfoRepository userInfoRepository;
+    private MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
@@ -24,12 +23,18 @@ public class UserInfoService implements UserDetailsService
             throw new UsernameNotFoundException("");
         }
 
-        UserInfoEntity userInfo = userInfoRepository.findByUsername(username);
-        if (userInfo == null)
+        MemberEntity memberEntity = this.memberRepository.findByUsername(username);
+        if (memberEntity == null)
         {
             throw new UsernameNotFoundException("");
         }
 
-        return userInfo;
+        return memberEntity;
+    }
+
+    @Autowired
+    public void setUserInfoRepository(MemberRepository userInfoRepository)
+    {
+        this.memberRepository = userInfoRepository;
     }
 }

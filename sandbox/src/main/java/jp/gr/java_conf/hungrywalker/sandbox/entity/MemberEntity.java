@@ -1,20 +1,15 @@
-package com.example.domain;
+package jp.gr.java_conf.hungrywalker.sandbox.entity;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
@@ -29,15 +24,10 @@ import lombok.Data;
 // 何度も書くコードをコンパイル時に自動生成してくれる
 @Data
 // テーブル名
-@Table(name = "user_info")
-public class UserInfoEntity implements UserDetails
+@Table(name = "member")
+public class MemberEntity implements UserDetails
 {
     private static final long serialVersionUID = 5983010622161900398L;
-
-    public enum Authority
-    {
-        ROLE_USER, ROLE_ADMIN
-    };
 
     @Id // 主キー
     @GeneratedValue(strategy = GenerationType.AUTO) // 自動採番（DBのidentityを利用）
@@ -49,17 +39,10 @@ public class UserInfoEntity implements UserDetails
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Authority authority;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(authority.toString()));
-
-        return authorities;
+        return null;
     }
 
     @Override
@@ -84,5 +67,17 @@ public class UserInfoEntity implements UserDetails
     public boolean isEnabled()
     {
         return true;
+    }
+
+    @Override
+    public String getPassword()
+    {
+        return this.password;
+    }
+
+    @Override
+    public String getUsername()
+    {
+        return this.username;
     }
 }

@@ -1,4 +1,4 @@
-package com.example;
+package jp.gr.java_conf.hungrywalker.sandbox;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
